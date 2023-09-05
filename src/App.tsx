@@ -6,12 +6,7 @@ import "./App.css";
 function App() {
   const [count, setCount] = useState(0);
 
-  return (
-    <div className="flex flex-row">
-      <p>hi</p>
-      <p>hi</p>
-    </div>
-  );
+  return <div className="flex">hi</div>;
 }
 
 export default App;
