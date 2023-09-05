@@ -2,6 +2,12 @@ import * as jsonData from "../../../public/products.json";
 
 const CategoryDisplay = () => {
   const products = jsonData.products;
+  let reviews: any[] = [];
+  products.map((item) => {
+    item.reviews.map((r) => {
+      reviews = [...reviews, r];
+    });
+  });
 
   const categories: string[] = [
     "Accent Chairs",
@@ -19,7 +25,7 @@ const CategoryDisplay = () => {
       <div className="w-5/6">
         <div className="flex mt-20 bg-[#aeabae] rounded-2xl justify-around">
           <div className="flex flex-col justify-center text-5xl font-semibold">
-            <p>Explore a World of Chairs,</p>
+            <p>Explore a World of Earphones,</p>
             <p> Crafted For You</p>
           </div>
           <img
@@ -29,8 +35,8 @@ const CategoryDisplay = () => {
             height={400}
           />
         </div>
-        <div className="flex justify-start mt-7 gap-9">
-          <div className="flex flex-col bg-[#f3f4f6] py-5 rounded-lg">
+        <div className="flex justify-start my-7 gap-9">
+          <div className="flex flex-col bg-[#f3f4f6] max-w-[300px] gap-4 h-max py-5 rounded-lg">
             <div className="flex justify-between text-lg bg-[#e7eae8] font-semibold mx-2 px-2 rounded-md">
               <div>Category</div>
               <div>
@@ -47,13 +53,13 @@ const CategoryDisplay = () => {
                 </svg>
               </div>
             </div>
-            {categories.map((item, i) => {
+            {products.map((item, i) => {
               return (
                 <div
                   key={i}
                   className="flex items-center justify-between px-4 gap-2"
                 >
-                  <div>{item}</div>
+                  <div>{item.product_title}</div>
                   <div>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -71,19 +77,41 @@ const CategoryDisplay = () => {
               );
             })}
           </div>
-          <div className="flex flex-col gap-5">
-            <div className="text-3xl font-semibold">Chairs</div>
-            <div>
-              {products.map((item, i) => {
+          <div className="flex flex-col gap-10 w-full">
+            <div className="text-3xl font-semibold">Earphones</div>
+            <div className="grid grid-cols-3 grid-flow-row gap-y-10">
+              {reviews.map((item, i) => {
                 return (
-                  <div key={i}>
-                    <div>hi</div>
-                    <div>hi</div>
+                  <div key={i} className="w-48">
+                    <div className="bg-[#d8d8d8] rounded-xl w-52 h-52">
+                      <img src={item.img} alt={item.product_title} />
+                    </div>
+                    <div>{item.product_title}</div>
                   </div>
                 );
               })}
             </div>
           </div>
+        </div>
+        <div className="flex justify-center items-center gap-2 mt-20 mb-10">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 16 16"
+          >
+            <g
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            >
+              <circle cx="8" cy="8" r="6.25" />
+              <path d="M10 6.75s-.75-1-2-1s-2.25 1-2.25 2.25s1 2.25 2.25 2.25s2-1 2-1" />
+            </g>
+          </svg>
+          core_dumped
         </div>
       </div>
     </div>

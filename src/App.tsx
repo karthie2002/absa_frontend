@@ -6,7 +6,7 @@ import CategoryDisplay from "./components/CategoryDisplay";
 import ProductReview from "./components/ProductView";
 
 function App() {
-  return <ProductReview />;
+  return <CategoryDisplay />;
 }
 
 export default App;
