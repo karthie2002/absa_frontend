@@ -18,8 +18,8 @@ const ProductReview = () => {
         review_summary: "Awesome",
         review_content:
           "1-more flexible2-bass is very high3-sound quatlity is good 4-battery back up to 6 to 8 hour's 5-main thing is fastest charging system is available in that performance. Only 20 min charge and get long up to 4 hours back up 6-killing look awesome 7-for gaming that product does not support 100% if you want for gaming then I'll recommend you please don't buy but you want for only music then this product is very well for you.. 8-no more wireless headphones are comparing with that headphones at this pric...",
-        aspect_terms: ["quality", "performance"],
-        sentiment_polarities: ["positive", "positive"],
+        aspect_terms: ["quality", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance"],
+        sentiment_polarities: ["neutral", "positive", "positive", "positive", "positive", "positive", "positive", "positive", "positive", "positive", "positive", "positive", "positive", "positive"],
         overall_sentiment: "negative",
       },
       {
@@ -28,7 +28,7 @@ const ProductReview = () => {
         review_content:
           "durability For the first time, I am posting a review, just because the product compelled me to do so. Icouldn't find a single aspect missed or mis-handled by Boat. Well this is called, quality engineering. Well, some people say Boat enhances bass and thus compensates with clarity, but I would give my neutral and true feedbackBass : 10/10Clarity : 9/10Comfort ease n looks : 15/10Features price :10/10The best buy from flipkart yet..",
         aspect_terms: ["durability", "price"],
-        sentiment_polarities: ["negative", "negative"],
+        sentiment_polarities: ["negative", "positive"],
         overall_sentiment: "negative",
       },
     ],
@@ -75,7 +75,7 @@ const ProductReview = () => {
             </div>
             Positive
           </div>
-          <div className="flex gap-2 bg-gray-100 p-3 rounded-xl">
+          <div className="flex gap-2 bg-gray-300 p-3 rounded-xl">
             <div className="bg-black text-white rounded-full w-7 flex justify-center">
               {prod.product_neutral}
             </div>
@@ -88,7 +88,7 @@ const ProductReview = () => {
             Negative
           </div>
         </div> */}
-        <div className="flex w-full justify-center items-center">
+        <div className="flex w-full justify-center pb-7 items-center">
           <div
             style={{
               display: "flex",
@@ -119,7 +119,7 @@ const ProductReview = () => {
             style={{
               display: "flex",
               width: negVal + "%",
-              backgroundColor: " rgb(254 226 226)",
+              backgroundColor: "rgb(254 226 226)",
               height: "40px",
               borderTopRightRadius: "12px",
               borderBottomRightRadius: "12px",
@@ -134,10 +134,27 @@ const ProductReview = () => {
           {prod.reviews.map((rev, i) => (
             <div
               key={i}
-              className="w-[100%] bg-white bg-opacity-50 backdrop-blur-xl rounded-xl drop-shadow-lg p-3 mb-3"
+              className="w-[100%] bg-white bg-opacity-50 backdrop-blur-xl rounded-xl drop-shadow-lg p-5 mb-3"
             >
               <div className="font-bold text-2xl">{rev.review_summary}</div>
               <div className="text-2xl">{rev.review_content}</div>
+              <div className="flex gap-2 pt-2 overflow-x-scroll">
+                {rev.aspect_terms.map((as, ind) => (
+                  <div
+                    className="p-2 rounded-xl"
+                    style={{
+                      backgroundColor:
+                        rev.sentiment_polarities[ind] == "positive"
+                          ? "rgb(220 252 231)"
+                          : rev.sentiment_polarities[ind] == "negative"
+                          ? "rgb(254 226 226)"
+                          : " rgb(209 213 219)",
+                    }}
+                  >
+                    {as}
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
