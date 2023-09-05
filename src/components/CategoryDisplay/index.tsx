@@ -9,16 +9,16 @@ const CategoryDisplay = () => {
     });
   });
 
-  const categories: string[] = [
-    "Accent Chairs",
-    "Armchairs",
-    "Dining Chairs",
-    "Office Chairs",
-    "Lounge Chairs",
-    "Outdoor Chairs",
-    "Bean Bag Chairs",
-    "Convertible Chairs",
-  ];
+  // const categories: string[] = [
+  //   "Accent Chairs",
+  //   "Armchairs",
+  //   "Dining Chairs",
+  //   "Office Chairs",
+  //   "Lounge Chairs",
+  //   "Outdoor Chairs",
+  //   "Bean Bag Chairs",
+  //   "Convertible Chairs",
+  // ];
 
   return (
     <div className="flex flex-col justify-center items-center">
