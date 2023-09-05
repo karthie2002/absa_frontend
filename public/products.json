@@ -1,48 +1,46 @@
-{
-  "products": [
-    {
-      "product_id": "ACCFZGAQJGYCYDCM",
-      "product_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget ante eu nulla iaculis tristique. Integer sit amet semper odio. Ut dictum congue odio, eu sodales metus tristique vel. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed tincidunt est in dolor vestibulum, sit amet varius dolor bibendum. Quisque vehicula justo et ante rhoncus bibendum. Vivamus id quam elit. Sed tristique, purus in vestibulum convallis, purus erat commodo orci, eget faucibus erat arcu a leo. Sed id risus vel urna dictum interdum. Fusce ut augue non neque laoreet dignissim nec nec sapien. Fusce dapibus, justo non rhoncus congue, arcu justo venenatis odio, sed consectetur odio eros non urna. Cras id nisl eget ipsum tincidunt rhoncus.",
-      "product_title": "BoAt Rockerz 235v2 with ASAP charging Version 5.0 Bluetooth Headset",
-      "category": "Electronics",
-      "reviews": [
-        {
-          "review_id": 101,
-          "review_content": "1-more flexible2-bass is very high3-sound clarity is good 4-battery back up to 6 to 8 hour's 5-main thing is fastest charging system is available in that. Only 20 min charge and get long up to 4 hours back up 6-killing look awesome 7-for gaming that product does not support 100% if you want for gaming then I'll recommend you please don't buy but you want for only music then this product is very well for you.. 8-no more wireless headphones are comparing with that headphones at this pric...",
-          "aspect_terms": ["quality", "performance"],
-          "sentiment_polarities": ["positive", "positive"],
-          "overall_sentiment": "negative"
-        },
-        {
-          "review_id": 102,
-          "review_content": "For the first time, I am posting a review, just because the product compelled me to do so. Icouldn't find a single aspect missed or mis-handled by Boat. Well this is called, quality engineering. Well, some people say Boat enhances bass and thus compensates with clarity, but I would give my neutral and true feedbackBass : 10/10Clarity : 9/10Comfort ease n looks : 15/10Features :10/10The best buy from flipkart yet..",
-          "aspect_terms": ["durability", "price"],
-          "sentiment_polarities": ["negative", "negative"],
-          "overall_sentiment": "negative"
-        }
-      ]
-    },
-    {
-      "product_id": "ACCFHGZFS7GB9CVM",
-      "category": "Costemics",
-      "product_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget ante eu nulla iaculis tristique. Integer sit amet semper odio. Ut dictum congue odio, eu sodales metus tristique vel. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed tincidunt est in dolor vestibulum, sit amet varius dolor bibendum. Quisque vehicula justo et ante rhoncus bibendum. Vivamus id quam elit. Sed tristique, purus in vestibulum convallis, purus erat commodo orci, eget faucibus erat arcu a leo. Sed id risus vel urna dictum interdum. Fusce ut augue non neque laoreet dignissim nec nec sapien. Fusce dapibus, justo non rhoncus congue, arcu justo venenatis odio, sed consectetur odio eros non urna. Cras id nisl eget ipsum tincidunt rhoncus.",
-      "product_title": "realme Buds Wireless Bluetooth Headset",
-      "reviews": [
-        {
-          "review_id": 103,
-          "review_content": "My primary usage and purpose of buying these is for calls during the Covid WFH season; Before the purchase, I was sceptical on various aspects like the capabilities of the mic, will my voice be clear, Will the background noise be amplified, Battery Backup, comfort in ear by fitting  Sound clarity and finally is it a worth the moneyFrom my experience in the last 10 days, i should say all the above boxes are checkedYes, the headset does a brilliant job while taking calls, i connect them to...",
-          "aspect_terms": ["quality", "performance"],
-          "sentiment_polarities": ["positive", "positive"],
-          "overall_sentiment": "negative"
-        },
-        {
-          "review_id": 104,
-          "review_content": "Balanced and soulful sound output. Sound is sweet and pleasant, not to bass boosted. Battery could have little better. Design is also good, sleek and stylish. Green colour is surely an attention drawer. Go for it.",
-          "aspect_terms": ["durability", "price"],
-          "sentiment_polarities": ["negative", "negative"],
-          "overall_sentiment": "negative"
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "product_id": "ACCFZGAQJGYCYDCM",
+    "product_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget ante eu nulla iaculis tristique. Integer sit amet semper odio. Ut dictum congue odio, eu sodales metus tristique vel. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed tincidunt est in dolor vestibulum, sit amet varius dolor bibendum. Quisque vehicula justo et ante rhoncus bibendum. Vivamus id quam elit. Sed tristique, purus in vestibulum convallis, purus erat commodo orci, eget faucibus erat arcu a leo. Sed id risus vel urna dictum interdum. Fusce ut augue non neque laoreet dignissim nec nec sapien. Fusce dapibus, justo non rhoncus congue, arcu justo venenatis odio, sed consectetur odio eros non urna. Cras id nisl eget ipsum tincidunt rhoncus.",
+    "product_title": "BoAt Rockerz 235v2 with ASAP charging Version 5.0 Bluetooth Headset",
+    "category": "Electronics",
+    "reviews": [
+      {
+        "review_id": 101,
+        "review_content": "1-more flexible2-bass is very high3-sound clarity is good 4-battery back up to 6 to 8 hour's 5-main thing is fastest charging system is available in that. Only 20 min charge and get long up to 4 hours back up 6-killing look awesome 7-for gaming that product does not support 100% if you want for gaming then I'll recommend you please don't buy but you want for only music then this product is very well for you.. 8-no more wireless headphones are comparing with that headphones at this pric...",
+        "aspect_terms": ["quality", "performance"],
+        "sentiment_polarities": ["positive", "positive"],
+        "overall_sentiment": "negative"
+      },
+      {
+        "review_id": 102,
+        "review_content": "For the first time, I am posting a review, just because the product compelled me to do so. Icouldn't find a single aspect missed or mis-handled by Boat. Well this is called, quality engineering. Well, some people say Boat enhances bass and thus compensates with clarity, but I would give my neutral and true feedbackBass : 10/10Clarity : 9/10Comfort ease n looks : 15/10Features :10/10The best buy from flipkart yet..",
+        "aspect_terms": ["durability", "price"],
+        "sentiment_polarities": ["negative", "negative"],
+        "overall_sentiment": "negative"
+      }
+    ]
+  },
+  {
+    "product_id": "ACCFHGZFS7GB9CVM",
+    "category": "Costemics",
+    "product_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget ante eu nulla iaculis tristique. Integer sit amet semper odio. Ut dictum congue odio, eu sodales metus tristique vel. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed tincidunt est in dolor vestibulum, sit amet varius dolor bibendum. Quisque vehicula justo et ante rhoncus bibendum. Vivamus id quam elit. Sed tristique, purus in vestibulum convallis, purus erat commodo orci, eget faucibus erat arcu a leo. Sed id risus vel urna dictum interdum. Fusce ut augue non neque laoreet dignissim nec nec sapien. Fusce dapibus, justo non rhoncus congue, arcu justo venenatis odio, sed consectetur odio eros non urna. Cras id nisl eget ipsum tincidunt rhoncus.",
+    "product_title": "realme Buds Wireless Bluetooth Headset",
+    "reviews": [
+      {
+        "review_id": 103,
+        "review_content": "My primary usage and purpose of buying these is for calls during the Covid WFH season; Before the purchase, I was sceptical on various aspects like the capabilities of the mic, will my voice be clear, Will the background noise be amplified, Battery Backup, comfort in ear by fitting  Sound clarity and finally is it a worth the moneyFrom my experience in the last 10 days, i should say all the above boxes are checkedYes, the headset does a brilliant job while taking calls, i connect them to...",
+        "aspect_terms": ["quality", "performance"],
+        "sentiment_polarities": ["positive", "positive"],
+        "overall_sentiment": "negative"
+      },
+      {
+        "review_id": 104,
+        "review_content": "Balanced and soulful sound output. Sound is sweet and pleasant, not to bass boosted. Battery could have little better. Design is also good, sleek and stylish. Green colour is surely an attention drawer. Go for it.",
+        "aspect_terms": ["durability", "price"],
+        "sentiment_polarities": ["negative", "negative"],
+        "overall_sentiment": "negative"
+      }
+    ]
+  }
+]
