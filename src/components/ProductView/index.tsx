@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import axios from "axios";
+
 const ProductReview = () => {
   const prod = {
     product_id: "ACCFZGAQJGYCYDCM",
@@ -18,7 +21,7 @@ const ProductReview = () => {
         review_summary: "Awesome",
         review_content:
           "1-more flexible2-bass is very high3-sound quatlity is good 4-battery back up to 6 to 8 hour's 5-main thing is fastest charging system is available in that performance. Only 20 min charge and get long up to 4 hours back up 6-killing look awesome 7-for gaming that product does not support 100% if you want for gaming then I'll recommend you please don't buy but you want for only music then this product is very well for you.. 8-no more wireless headphones are comparing with that headphones at this pric...",
-        aspect_terms: ["quality", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance"],
+        aspect_terms: ["quality", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance", "performance"],
         sentiment_polarities: ["neutral", "positive", "positive", "positive", "positive", "positive", "positive", "positive", "positive", "positive", "positive", "positive", "positive", "positive"],
         overall_sentiment: "negative",
       },
@@ -33,6 +36,12 @@ const ProductReview = () => {
       },
     ],
   };
+  useEffect(() => {
+    axios.get("http://localhost:3000/review/")
+  
+   
+  }, [])
+  
   const pVal = (prod.product_positive / prod.product_review_total) * 100;
   const nVal = (prod.product_neutral / prod.product_review_total) * 100;
   const negVal = (prod.product_negative / prod.product_review_total) * 100;
@@ -134,11 +143,11 @@ const ProductReview = () => {
           {prod.reviews.map((rev, i) => (
             <div
               key={i}
-              className="w-[100%] bg-white bg-opacity-50 backdrop-blur-xl rounded-xl drop-shadow-lg p-5 mb-3"
+              className="w-[100%] bg-white bg-opacity-50 backdrop-blur-xl rounded-xl p-5 mb-3"
             >
               <div className="font-bold text-2xl">{rev.review_summary}</div>
               <div className="text-2xl">{rev.review_content}</div>
-              <div className="flex gap-2 pt-2 overflow-x-scroll">
+              <div className="flex gap-2 pt-2 flex-wrap">
                 {rev.aspect_terms.map((as, ind) => (
                   <div
                     className="p-2 rounded-xl"
