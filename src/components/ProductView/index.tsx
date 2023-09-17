@@ -172,8 +172,8 @@ const ProductReview = ({ pid }: any) => {
                     ></span>
                     <div>{rev.product_review.date}</div>
                   </div>
-                  <div className="text-2xl">{rev.product_review.review}</div>
-                  <div className="flex gap-2 pt-2 flex-wrap">
+                  <div className="text-xl">{rev.product_review.review}</div>
+                  <div className="flex gap-2 pt-5 flex-wrap">
                     {rev.aspect_terms.map((as: any, ind: any) => (
                       <div
                         className="p-2 rounded-xl"
