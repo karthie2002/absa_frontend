@@ -79,7 +79,7 @@ const ProductReview = () => {
   const handleSummaryChange = (event: any) => {
     setInputSummary(event.target.value);
   };
-  const handleSubmit = (event: any) => {
+  async function handleSubmit(event: any) {
     event.preventDefault();
     console.log("Input value:", inputRev);
     console.log(inputSummary);
@@ -91,8 +91,28 @@ const ProductReview = () => {
       review: inputRev,
       summary: inputSummary,
     };
-    console.log(inpValues)
-  };
+    // console.log(inpValues);
+    const data = await axios
+      .post(
+        "https://91a3-35-225-211-23.ngrok-free.app/generate/",
+        {
+          inputs: inputRev,
+          parameters: {},
+        },
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    console.log(data);
+  }
   return (
     <div>
       {dat ? (
