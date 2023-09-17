@@ -183,7 +183,9 @@ const ProductReview = ({ pid }: any) => {
           </div>
         </div>
       ) : (
-        <div>loading</div>
+        <div className="flex items-center justify-center h-screen">
+          <img src="../../../loader.gif" />
+        </div>
       )}
     </div>
   );
