@@ -160,7 +160,7 @@ const ProductReview = ({ pid }: any) => {
                       {rev.product_review.summary}
                     </div>
                     <span
-                      className="absolute inset-x-0 bottom-0 h-1 rounded-b-xl"
+                      className="absolute inset-x-0 bottom-0 h-1.5 justify-center items-center rounded-b-xl"
                       style={{
                         backgroundColor:
                           rev.overall_sentiment_polarities == "positive"
