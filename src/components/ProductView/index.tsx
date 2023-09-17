@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
-const ProductReview = ({ pid }: any) => {
+const ProductReview = () => {
+  const { productId } = useParams();
   const [dat, setData] = useState<{
     details: {
       product_categry: string;
@@ -26,7 +28,7 @@ const ProductReview = ({ pid }: any) => {
     async function fetchData() {
       try {
         const val = await axios.get(
-          `https://backend-absa.vercel.app/groupReviews/${pid}`
+          `https://backend-absa.vercel.app/groupReviews/${productId}`
         );
         setData(val.data);
         console.log(val.data);
@@ -176,6 +178,7 @@ const ProductReview = ({ pid }: any) => {
                   <div className="flex gap-2 pt-5 flex-wrap">
                     {rev.aspect_terms.map((as: any, ind: any) => (
                       <div
+                      key={ind}
                         className="p-2 rounded-xl"
                         style={{
                           backgroundColor:
