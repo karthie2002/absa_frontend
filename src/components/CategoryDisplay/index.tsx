@@ -72,6 +72,7 @@ const CategoryDisplay = () => {
                   key={i}
                   className="flex items-center justify-between px-4 gap-2"
                 >
+                  <div>{item.product_title}</div>
                   <Link to={`product/${item.product_id}`}>
                     <div>
                       <svg
