@@ -79,7 +79,7 @@ const ProductReview = () => {
   const handleSummaryChange = (event: any) => {
     setInputSummary(event.target.value);
   };
-  const handleSubmit = (event: any) => {
+  async function handleSubmit(event: any) {
     event.preventDefault();
     console.log("Input value:", inputRev);
     console.log(inputSummary);
@@ -91,8 +91,19 @@ const ProductReview = () => {
       review: inputRev,
       summary: inputSummary,
     };
-    console.log(inpValues)
-  };
+    // console.log(inpValues);
+    try {
+      const response = await axios.post(
+        "https://backend-absa.vercel.app/addReview",
+        inpValues
+      );
+      console.log("Response:", response.data);
+      // You can handle the response data here
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle any errors here
+    }
+  }
   return (
     <div>
       {dat ? (
