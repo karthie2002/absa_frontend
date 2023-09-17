@@ -92,17 +92,26 @@ const ProductReview = () => {
       summary: inputSummary,
     };
     // console.log(inpValues);
-    try {
-      const response = await axios.post(
-        "https://backend-absa.vercel.app/addReview",
-        inpValues
-      );
-      console.log("Response:", response.data);
-      // You can handle the response data here
-    } catch (error) {
-      console.error("Error:", error);
-      // Handle any errors here
-    }
+    const data = await axios
+      .post(
+        "https://91a3-35-225-211-23.ngrok-free.app/generate/",
+        {
+          inputs: inputRev,
+          parameters: {},
+        },
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    console.log(data);
   }
   return (
     <div>
