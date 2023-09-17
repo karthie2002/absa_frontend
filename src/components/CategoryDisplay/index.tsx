@@ -20,18 +20,10 @@ const CategoryDisplay = () => {
       .then((response) => response.json())
       .then((data) => {
         data = [...data, { product_categry: "HomeDecor" }];
-        data.map(
-          (
-            item: {
-              product_categry: string;
-              selected: boolean;
-            },
-            i: any
-          ) => {
-            if (item.product_categry == selectedCateg) item.selected = true;
-            else item.selected = false;
-          }
-        );
+        data.map((item: { product_categry: string; selected: boolean }) => {
+          if (item.product_categry == selectedCateg) item.selected = true;
+          else item.selected = false;
+        });
         setCategories(data);
         console.log(categories);
         if (data[0]) {
