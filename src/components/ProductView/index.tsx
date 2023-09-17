@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-export interface AddReview {
-  product_id: string | undefined;
-  product_title: string | undefined;
-  product_category: string | undefined;
-  review: string | undefined;
-  summary: string | undefined;
-}
+
 const ProductReview = () => {
+  const options: {
+    year: "numeric";
+    month: "short";
+    day: "numeric";
+  } = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+  const today = new Date();
+  const dateVal = today.toLocaleDateString("en-US", options);
+
   const { productId } = useParams();
   const [inputRev, setInputRevValue] = useState("");
   const [inputSummary, setInputSummary] = useState("");
@@ -34,19 +40,18 @@ const ProductReview = () => {
       }
     ];
   }>();
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const val = await axios.get(
-          `https://backend-absa.vercel.app/groupReviews/${productId}`
-        );
-        setData(val.data);
-        console.log(val.data);
-      } catch (error) {
-        console.log("error");
-      }
+  async function fetchData() {
+    try {
+      const val = await axios.get(
+        `https://backend-absa.vercel.app/groupReviews/${productId}`
+      );
+      setData(val.data);
+      console.log(val.data);
+    } catch (error) {
+      console.log("error");
     }
-
+  }
+  useEffect(() => {
     fetchData();
   }, []);
   const product_review_total = dat?.predictions.length || 0;
@@ -64,6 +69,7 @@ const ProductReview = () => {
   });
 
   const pVal = (pCount / product_review_total) * 100;
+
   const nVal = (nCount / product_review_total) * 100;
   const negVal = (negCount / product_review_total) * 100;
   const handleInputChange = (event: any) => {
@@ -84,25 +90,15 @@ const ProductReview = () => {
     console.log("Input value:", inputRev);
     console.log(inputSummary);
     isClicked(false);
-    const inpValues: AddReview = {
-      product_id: productId,
-      product_category: dat?.details.product_categry,
-      product_title: dat?.details.product_title,
-      review: inputRev,
-      summary: inputSummary,
-    };
+
     // console.log(inpValues);
     const data = await axios
       .post(
-        "https://91a3-35-225-211-23.ngrok-free.app/generate/",
+        "https://ff28-35-225-211-23.ngrok-free.app/generate/",
+
         {
           inputs: inputRev,
           parameters: {},
-        },
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-          },
         }
       )
       .then(function (response) {
@@ -111,7 +107,27 @@ const ProductReview = () => {
       .catch(function (error) {
         console.log(error);
       });
-    console.log(data);
+    const aspect_terms_sentiment = JSON.parse(data["generated_text"]);
+    const overall_sentiment_polarity = JSON.parse(
+      data["overall_sentiment_polarity"]
+    )[0];
+    console.log(aspect_terms_sentiment, overall_sentiment_polarity);
+    axios
+      .post("https://backend-absa.vercel.app/post", {
+        product_id: productId,
+        product_title: dat?.details.product_title,
+        product_category: dat?.details.product_categry,
+        rating: 0,
+        review: inputRev,
+        summary: inputSummary,
+        date: dateVal,
+        aspect_terms_sentiment: aspect_terms_sentiment,
+        overall_sentiment_polarity: overall_sentiment_polarity,
+      })
+      .then(function (response) {
+        console.log(response.data);
+        fetchData();
+      });
   }
   return (
     <div>
@@ -137,7 +153,7 @@ const ProductReview = () => {
               </div>
               <div className="flex items-center gap-2">
                 <div className="text-xl font-semibold text-green-500">
-                  {pVal}%
+                  {Math.round(pVal)}%
                 </div>
                 <div>
                   <img src="../../../tick.png" height={20} width={20} />
