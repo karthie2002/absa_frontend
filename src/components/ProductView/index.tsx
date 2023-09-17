@@ -133,7 +133,7 @@ const ProductReview = () => {
     <div>
       {dat ? (
         <div className="flex h-[100vh] mb-8">
-          <div className="w-[50%] flex justify-center items-center pr-20">
+          <div className="max-md:hidden w-[50%] flex justify-center items-center pr-20">
             {dat?.details.product_categry == "default" ? (
               <img
                 src={`../../../public/default.jpg`}
@@ -146,7 +146,7 @@ const ProductReview = () => {
               />
             )}
           </div>
-          <div className="w-[50%] flex flex-col p-20 ">
+          <div className="w-[50%] max-md:w-full flex flex-col p-20 max-md:p-8">
             <div className="flex flex-col gap-3">
               <div className="text-4xl font-bold">
                 {dat?.details.product_title}
