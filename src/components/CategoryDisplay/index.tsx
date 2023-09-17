@@ -20,15 +20,23 @@ const CategoryDisplay = () => {
       .then((response) => response.json())
       .then((data) => {
         data = [...data, { product_categry: "HomeDecor" }];
-        data.map((item: { selected: boolean }, i: any) => {
-          if (i == 0) item.selected = true;
-          else item.selected = false;
-        });
+        data.map(
+          (
+            item: {
+              product_categry: string;
+              selected: boolean;
+            },
+            i: any
+          ) => {
+            if (item.product_categry == selectedCateg) item.selected = true;
+            else item.selected = false;
+          }
+        );
         setCategories(data);
         console.log(categories);
         if (data[0]) {
           setSelectedCateg(data[0].product_categry);
-          console.log(selectedCateg, categories);
+          console.log(selectedCateg);
         }
       })
       .catch((error) => {
@@ -47,13 +55,14 @@ const CategoryDisplay = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, []);
+  }, [selectedCateg]);
 
   const selectCateg = (index: number) => {
     const arr: CategoryInterface[] = categories.map((item, i) => {
       if (index == i) {
         item.selected = true;
         setSelectedCateg(item.product_categry);
+        console.log(selectedCateg);
       } else item.selected = false;
       return item;
     });
