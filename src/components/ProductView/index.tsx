@@ -461,7 +461,7 @@ const ProductReview = () => {
                     rev.overall_sentiment_polarities == "neutral" && (
                       <div
                         key={i}
-                        className="w-[100%] bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
+                        className="w-[100%] relative bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
                       >
                         <div className="flex justify-between items-center">
                           <div className="font-bold text-2xl">
