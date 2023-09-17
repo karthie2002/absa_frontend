@@ -25,10 +25,10 @@ const CategoryDisplay = () => {
           else item.selected = false;
         });
         setCategories(data);
-        console.log(categories);
+        // console.log(categories);
         if (data[0]) {
           setSelectedCateg(data[0].product_categry);
-          console.log(selectedCateg);
+          // console.log(selectedCateg);
         }
       })
       .catch((error) => {
@@ -42,6 +42,7 @@ const CategoryDisplay = () => {
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
+        console.log(selectedCateg);
         console.log(products);
       })
       .catch((error) => {
@@ -54,7 +55,7 @@ const CategoryDisplay = () => {
       if (index == i) {
         item.selected = true;
         setSelectedCateg(item.product_categry);
-        console.log(selectedCateg);
+        // console.log(selectedCateg);
       } else item.selected = false;
       return item;
     });
@@ -63,21 +64,24 @@ const CategoryDisplay = () => {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="w-5/6">
-        <div className="flex mt-20 bg-[#aeabae] rounded-2xl justify-around">
-          <div className="flex flex-col justify-center text-5xl font-semibold">
+      <div className="w-5/6 max-xl:w-4/5 max-lg:w-4/5">
+        <div className="flex mt-20 bg-[#aeabae] rounded-2xl justify-around max-sm:flex-col max-sm:items-center max-sm:gap-5">
+          <div className="flex flex-col justify-center text-5xl font-semibold max-xl:text-4xl max-lg:pl-3 max-lg:text-3xl max-sm:text-2xl">
             <p>Explore a World of Products,</p>
-            <p> Crafted For You</p>
+            <p>Crafted For You</p>
           </div>
-          <img
-            src="https://prod4-sprcdn-assets.sprinklr.com/200052/8797ad9e-cc75-4b75-a27e-320a6310dc15-468706698/450.png"
-            alt="Product Image"
-            width={300}
-            height={400}
-          />
+          <div className="w-3/5">
+            <img
+              src="https://prod4-sprcdn-assets.sprinklr.com/200052/8797ad9e-cc75-4b75-a27e-320a6310dc15-468706698/450.png"
+              alt="Product Image"
+              width={300}
+              height={400}
+              className=""
+            />
+          </div>
         </div>
         <div className="flex justify-start my-7 gap-9">
-          <div className="flex flex-col bg-[#f3f4f6] max-w-[300px] gap-4 h-max py-5 rounded-lg">
+          <div className="flex flex-col bg-[#f3f4f6] max-w-[300px] gap-4 h-max py-5 rounded-lg max-xl:max-w-[200px]">
             <div className="flex justify-between text-lg bg-[#e7eae8] font-semibold mx-2 px-2 rounded-md">
               <div>Categories</div>
               <div>
@@ -99,7 +103,7 @@ const CategoryDisplay = () => {
                 <div
                   key={i}
                   onClick={() => selectCateg(i)}
-                  className="flex items-center justify-between px-4 gap-2 min-w-[300px] cursor-pointer"
+                  className="flex items-center justify-between px-4 gap-2 min-w-[300px] cursor-pointer max-xl:min-w-[200px]"
                 >
                   <div>{item.product_categry}</div>
                   {item.selected && (
@@ -119,20 +123,20 @@ const CategoryDisplay = () => {
               );
             })}
           </div>
-          <div className="flex flex-col gap-10 w-full">
+          <div className="flex flex-col gap-10 w-full ">
             <div className="text-3xl font-semibold">{selectedCateg}</div>
-            <div className="grid grid-cols-3 grid-flow-row gap-y-10">
+            <div className="grid grid-cols-3 grid-flow-row gap-y-10 gap-x-10 max-xl:grid-cols-2 max-[830px]:grid-cols-1 max-[830px]:self-center">
               {products.map((item, i) => {
                 return (
-                  <div key={i} className="w-48">
+                  <div key={i} className="w-52 hover:scale-105">
                     <Link to={`product/${item.product_id}`}>
-                      <div className="bg-[#d8d8d8] rounded-xl w-52 h-52">
+                      <div className="bg-[#d8d8d8] rounded-xl w-52 h-52 hover:shadow-md">
                         <img
                           src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1689320106/Croma%20Assets/Entertainment/Headphones%20and%20Earphones/Images/275212_io0vgm.png?tr=w-600"
                           alt={item.product_title}
                         />
                       </div>
-                      <div>{item.product_title}</div>
+                      <div className="mt-1">{item.product_title}</div>
                     </Link>
                   </div>
                 );
