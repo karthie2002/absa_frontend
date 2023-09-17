@@ -155,8 +155,22 @@ const ProductReview = ({ pid }: any) => {
                   key={i}
                   className="w-[100%] bg-gray-200 p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-3"
                 >
-                  <div className="font-bold text-2xl">
-                    {rev.product_review.summary}
+                  <div className="flex justify-between items-center">
+                    <div className="font-bold text-2xl">
+                      {rev.product_review.summary}
+                    </div>
+                    <span
+                      className="absolute inset-x-0 bottom-0 h-1 rounded-b-xl"
+                      style={{
+                        backgroundColor:
+                          rev.overall_sentiment_polarities == "positive"
+                            ? "rgb(74, 222, 128)"
+                            : rev.overall_sentiment_polarities == "negative"
+                            ? "rgb(248, 113, 113)"
+                            : " rgb(156, 163, 175)",
+                      }}
+                    ></span>
+                    <div>{rev.product_review.date}</div>
                   </div>
                   <div className="text-2xl">{rev.product_review.review}</div>
                   <div className="flex gap-2 pt-2 flex-wrap">
