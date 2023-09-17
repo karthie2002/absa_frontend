@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import * as jsonData from "../../../public/products.json";
 import { Link } from "react-router-dom";
 
 interface CategoryInterface {
