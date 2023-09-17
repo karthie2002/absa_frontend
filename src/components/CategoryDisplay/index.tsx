@@ -38,6 +38,7 @@ const CategoryDisplay = () => {
     fetch("https://backend-absa.vercel.app/categories/findAllProducts", {
       method: "POST",
       body: JSON.stringify({ categName: selectedCateg }),
+      headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
       .then((data) => {
@@ -70,7 +71,7 @@ const CategoryDisplay = () => {
             <p>Explore a World of Products,</p>
             <p>Crafted For You</p>
           </div>
-          <div className="w-3/5">
+          <div className="max-md:w-3/5">
             <img
               src="https://prod4-sprcdn-assets.sprinklr.com/200052/8797ad9e-cc75-4b75-a27e-320a6310dc15-468706698/450.png"
               alt="Product Image"
@@ -123,7 +124,7 @@ const CategoryDisplay = () => {
               );
             })}
           </div>
-          <div className="flex flex-col gap-10 w-full ">
+          <div className="flex flex-col gap-10 w-full">
             <div className="text-3xl font-semibold">{selectedCateg}</div>
             <div className="grid grid-cols-3 grid-flow-row gap-y-10 gap-x-10 max-xl:grid-cols-2 max-[830px]:grid-cols-1 max-[830px]:self-center">
               {products.map((item, i) => {
