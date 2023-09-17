@@ -7,25 +7,38 @@ interface ProductInterface {
 }
 interface CategoryInterface {
   product_categry: string;
+  selected: boolean;
 }
 
 const CategoryDisplay = () => {
   const [products, setProducts] = useState<ProductInterface[]>([]);
   const [categories, setCategories] = useState<CategoryInterface[]>([]);
+  const [selectedCateg, setSelectedCateg] = useState("");
 
   useEffect(() => {
     fetch("https://backend-absa.vercel.app/categories/findAllCategories")
       .then((response) => response.json())
       .then((data) => {
         data = [...data, { product_categry: "HomeDecor" }];
+        data.map((item: { selected: boolean }, i: any) => {
+          if (i == 0) item.selected = true;
+          else item.selected = false;
+        });
         setCategories(data);
         console.log(categories);
+        if (data[0]) {
+          setSelectedCateg(data[0].product_categry);
+          console.log(selectedCateg, categories);
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
       });
 
-    fetch("https://backend-absa.vercel.app/categories/findAllProducts")
+    fetch("https://backend-absa.vercel.app/categories/findAllProducts", {
+      method: "POST",
+      body: JSON.stringify({ categName: selectedCateg }),
+    })
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
@@ -35,6 +48,17 @@ const CategoryDisplay = () => {
         console.error("Error:", error);
       });
   }, []);
+
+  const selectCateg = (index: number) => {
+    const arr: CategoryInterface[] = categories.map((item, i) => {
+      if (index == i) {
+        item.selected = true;
+        setSelectedCateg(item.product_categry);
+      } else item.selected = false;
+      return item;
+    });
+    setCategories(arr);
+  };
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -54,55 +78,48 @@ const CategoryDisplay = () => {
         <div className="flex justify-start my-7 gap-9">
           <div className="flex flex-col bg-[#f3f4f6] max-w-[300px] gap-4 h-max py-5 rounded-lg">
             <div className="flex justify-between text-lg bg-[#e7eae8] font-semibold mx-2 px-2 rounded-md">
-              {categories.map((item, i) => {
-                return (
-                  <div key={i}>
-                    <div>{item.product_categry}</div>
-                    <div>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="32"
-                        height="32"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M9.29 15.88L13.17 12L9.29 8.12a.996.996 0 1 1 1.41-1.41l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3a.996.996 0 0 1-1.41 0c-.38-.39-.39-1.03 0-1.42z"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                );
-              })}
+              <div>Categories</div>
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M9.29 15.88L13.17 12L9.29 8.12a.996.996 0 1 1 1.41-1.41l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3a.996.996 0 0 1-1.41 0c-.38-.39-.39-1.03 0-1.42z"
+                  />
+                </svg>
+              </div>
             </div>
-            {products.map((item, i) => {
+            {categories.map((item, i) => {
               return (
                 <div
                   key={i}
-                  className="flex items-center justify-between px-4 gap-2"
+                  onClick={() => selectCateg(i)}
+                  className="flex items-center justify-between px-4 gap-2 min-w-[300px] cursor-pointer"
                 >
-                  <div>{item.product_title}</div>
-                  <Link to={`product/${item.product_id}`}>
-                    <div>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="32"
-                        height="32"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M8.12 9.29L12 13.17l3.88-3.88a.996.996 0 1 1 1.41 1.41l-4.59 4.59a.996.996 0 0 1-1.41 0L6.7 10.7a.996.996 0 0 1 0-1.41c.39-.38 1.03-.39 1.42 0z"
-                        />
-                      </svg>
-                    </div>
-                  </Link>
+                  <div>{item.product_categry}</div>
+                  {item.selected && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="m10.6 13.8l-2.15-2.15q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7L9.9 15.9q.3.3.7.3t.7-.3l5.65-5.65q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L10.6 13.8ZM12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"
+                      />
+                    </svg>
+                  )}
                 </div>
               );
             })}
           </div>
           <div className="flex flex-col gap-10 w-full">
-            <div className="text-3xl font-semibold">Earphones</div>
+            <div className="text-3xl font-semibold">{selectedCateg}</div>
             <div className="grid grid-cols-3 grid-flow-row gap-y-10">
               {products.map((item, i) => {
                 return (
