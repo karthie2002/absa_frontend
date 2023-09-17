@@ -1,13 +1,26 @@
+import { useEffect, useState } from "react";
 import * as jsonData from "../../../public/products.json";
+import { Link } from "react-router-dom";
+
+interface CategoryInterface {
+  product_id: string;
+  product_title: string;
+}
 
 const CategoryDisplay = () => {
-  const products = jsonData.products;
-  let reviews: any[] = [];
-  products.map((item) => {
-    item.reviews.map((r) => {
-      reviews = [...reviews, r];
-    });
-  });
+  const [reviews, setReviews] = useState<CategoryInterface[]>([]);
+
+  useEffect(() => {
+    fetch("https://backend-absa.vercel.app/categories/findAllCategories")
+      .then((response) => response.json())
+      .then((data) => {
+        setReviews(data);
+        console.log(reviews);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
 
   // const categories: string[] = [
   //   "Accent Chairs",
@@ -53,26 +66,27 @@ const CategoryDisplay = () => {
                 </svg>
               </div>
             </div>
-            {products.map((item, i) => {
+            {reviews.map((item, i) => {
               return (
                 <div
                   key={i}
                   className="flex items-center justify-between px-4 gap-2"
                 >
-                  <div>{item.product_title}</div>
-                  <div>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="32"
-                      height="32"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M8.12 9.29L12 13.17l3.88-3.88a.996.996 0 1 1 1.41 1.41l-4.59 4.59a.996.996 0 0 1-1.41 0L6.7 10.7a.996.996 0 0 1 0-1.41c.39-.38 1.03-.39 1.42 0z"
-                      />
-                    </svg>
-                  </div>
+                  <Link to={`product/${item.product_id}`}>
+                    <div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M8.12 9.29L12 13.17l3.88-3.88a.996.996 0 1 1 1.41 1.41l-4.59 4.59a.996.996 0 0 1-1.41 0L6.7 10.7a.996.996 0 0 1 0-1.41c.39-.38 1.03-.39 1.42 0z"
+                        />
+                      </svg>
+                    </div>
+                  </Link>
                 </div>
               );
             })}
@@ -83,10 +97,15 @@ const CategoryDisplay = () => {
               {reviews.map((item, i) => {
                 return (
                   <div key={i} className="w-48">
-                    <div className="bg-[#d8d8d8] rounded-xl w-52 h-52">
-                      <img src={item.img} alt={item.product_title} />
-                    </div>
-                    <div>{item.product_title}</div>
+                    <Link to={`product/${item.product_id}`}>
+                      <div className="bg-[#d8d8d8] rounded-xl w-52 h-52">
+                        <img
+                          src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1689320106/Croma%20Assets/Entertainment/Headphones%20and%20Earphones/Images/275212_io0vgm.png?tr=w-600"
+                          alt={item.product_title}
+                        />
+                      </div>
+                      <div>{item.product_title}</div>
+                    </Link>
                   </div>
                 );
               })}
@@ -103,9 +122,9 @@ const CategoryDisplay = () => {
             <g
               fill="none"
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1.5"
             >
               <circle cx="8" cy="8" r="6.25" />
               <path d="M10 6.75s-.75-1-2-1s-2.25 1-2.25 2.25s1 2.25 2.25 2.25s2-1 2-1" />
