@@ -16,39 +16,40 @@ const CategoryDisplay = () => {
   const [selectedCateg, setSelectedCateg] = useState("");
 
   useEffect(() => {
-    fetch("https://backend-absa.vercel.app/categories/findAllCategories")
-      .then((response) => response.json())
-      .then((data) => {
-        data = [...data, { product_categry: "HomeDecor" }];
-        data.map((item: { product_categry: string; selected: boolean }) => {
-          if (item.product_categry == selectedCateg) item.selected = true;
-          else item.selected = false;
-        });
-        setCategories(data);
-        // console.log(categories);
-        if (data[0]) {
-          setSelectedCateg(data[0].product_categry);
+    if (!selectedCateg) {
+      fetch("https://backend-absa.vercel.app/categories/findAllCategories")
+        .then((response) => response.json())
+        .then((data) => {
+          data.map((item: { product_categry: string; selected: boolean }) => {
+            if (item.product_categry == selectedCateg) item.selected = true;
+            else item.selected = false;
+          });
+          setCategories(data);
           // console.log(selectedCateg);
-        }
+          if (data[0]) {
+            setSelectedCateg(data[0].product_categry);
+            // console.log(selectedCateg);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      fetch("https://backend-absa.vercel.app/categories/findAllProducts", {
+        method: "POST",
+        body: JSON.stringify({ categName: selectedCateg }),
+        headers: { "Content-Type": "application/json" },
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-
-    fetch("https://backend-absa.vercel.app/categories/findAllProducts", {
-      method: "POST",
-      body: JSON.stringify({ categName: selectedCateg }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data);
-        console.log(selectedCateg);
-        console.log(products);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          setProducts(data);
+          // console.log(selectedCateg);
+          console.log(products);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   }, [selectedCateg]);
 
   const selectCateg = (index: number) => {
@@ -81,8 +82,8 @@ const CategoryDisplay = () => {
             />
           </div>
         </div>
-        <div className="flex justify-start my-7 gap-9">
-          <div className="flex flex-col bg-[#f3f4f6] max-w-[300px] gap-4 h-max py-5 rounded-lg max-xl:max-w-[200px]">
+        <div className="flex justify-start my-7 gap-9 max-sm:flex-col">
+          <div className="flex flex-col bg-[#f3f4f6] max-w-[300px] gap-4 h-max py-5 rounded-lg max-xl:max-w-[200px] max-sm:max-w-full">
             <div className="flex justify-between text-lg bg-[#e7eae8] font-semibold mx-2 px-2 rounded-md">
               <div>Categories</div>
               <div>
@@ -125,7 +126,9 @@ const CategoryDisplay = () => {
             })}
           </div>
           <div className="flex flex-col gap-10 w-full">
-            <div className="text-3xl font-semibold">{selectedCateg}</div>
+            <div className="text-3xl font-semibold max-sm:text-2xl">
+              {selectedCateg}
+            </div>
             <div className="grid grid-cols-3 grid-flow-row gap-y-10 gap-x-10 max-xl:grid-cols-2 max-[830px]:grid-cols-1 max-[830px]:self-center">
               {products.map((item, i) => {
                 return (
