@@ -298,214 +298,246 @@ const ProductReview = () => {
 
             {selectedOption == "all" && (
               <div className="pb-7">
-                {dat.predictions.map((rev: any, i: any) => (
-                  <div
-                    key={i}
-                    className="w-[100%] bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
-                  >
-                    <div className="flex justify-between items-center">
-                      <div className="font-bold text-2xl">
-                        {rev.product_review.summary}
-                      </div>
-                      <span
-                        className="absolute inset-x-0 bottom-0 h-1.5 justify-center items-center rounded-b-xl"
-                        style={{
-                          backgroundColor:
-                            rev.overall_sentiment_polarities == "positive"
-                              ? "rgb(74, 222, 128)"
-                              : rev.overall_sentiment_polarities == "negative"
-                              ? "rgb(248, 113, 113)"
-                              : " rgb(156, 163, 175)",
-                        }}
-                      ></span>
-                      <div>{rev.product_review.date}</div>
-                    </div>
-                    <div className="text-xl">{rev.product_review.review}</div>
-                    <div className="flex gap-2 pt-5 flex-wrap">
-                      {rev.aspect_terms.map((as: any, ind: any) => (
-                        <div
-                          key={ind}
-                          className="p-2 rounded-xl"
+                {dat.predictions
+                  .slice()
+                  .reverse()
+                  .map((rev: any, i: any) => (
+                    <div
+                      key={i}
+                      className="w-[100%] bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
+                    >
+                      <div className="flex justify-between items-center">
+                        <div className="font-bold text-2xl">
+                          {rev.product_review.summary}
+                        </div>
+                        <span
+                          className="absolute inset-x-0 bottom-0 h-1.5 justify-center items-center rounded-b-xl"
                           style={{
                             backgroundColor:
-                              rev.aspect_sentiment_polarities[ind] == "positive"
-                                ? "rgb(220 252 231)"
-                                : rev.aspect_sentiment_polarities[ind] ==
-                                  "negative"
-                                ? "rgb(254 226 226)"
-                                : " rgb(209 213 219)",
+                              rev.overall_sentiment_polarities == "positive"
+                                ? "rgb(74, 222, 128)"
+                                : rev.overall_sentiment_polarities == "negative"
+                                ? "rgb(248, 113, 113)"
+                                : " rgb(156, 163, 175)",
                           }}
-                        >
-                          {as}
-                        </div>
-                      ))}
+                        ></span>
+                        <div>{rev.product_review.date}</div>
+                      </div>
+                      <div className="text-xl">{rev.product_review.review}</div>
+                      <div className="flex gap-2 pt-5 flex-wrap">
+                        {rev.aspect_terms.map((as: any, ind: any) => (
+                          <div
+                            key={ind}
+                            className="p-2 rounded-xl"
+                            style={{
+                              backgroundColor:
+                                rev.aspect_sentiment_polarities[ind] ==
+                                "positive"
+                                  ? "rgb(220 252 231)"
+                                  : rev.aspect_sentiment_polarities[ind] ==
+                                    "negative"
+                                  ? "rgb(254 226 226)"
+                                  : " rgb(209 213 219)",
+                            }}
+                          >
+                            {as}
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
             )}
             {selectedOption == "positive" && (
               <div className="pb-7">
-                {dat.predictions.map(
-                  (rev: any, i: any) =>
-                    rev.overall_sentiment_polarities == "positive" && (
-                      <div
-                        key={i}
-                        className="w-[100%] bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
-                      >
-                        <div className="flex justify-between items-center">
-                          <div className="font-bold text-2xl">
-                            {rev.product_review.summary}
-                          </div>
-                          <span
-                            className="absolute inset-x-0 bottom-0 h-1.5 justify-center items-center rounded-b-xl"
-                            style={{
-                              backgroundColor:
-                                rev.overall_sentiment_polarities == "positive"
-                                  ? "rgb(74, 222, 128)"
-                                  : rev.overall_sentiment_polarities ==
-                                    "negative"
-                                  ? "rgb(248, 113, 113)"
-                                  : " rgb(156, 163, 175)",
-                            }}
-                          ></span>
-                          <div>{rev.product_review.date}</div>
-                        </div>
-                        <div className="text-xl">
-                          {rev.product_review.review}
-                        </div>
-                        <div className="flex gap-2 pt-5 flex-wrap">
-                          {rev.aspect_terms.map((as: any, ind: any) => (
-                            <div
-                              key={ind}
-                              className="p-2 rounded-xl"
-                              style={{
-                                backgroundColor:
-                                  rev.aspect_sentiment_polarities[ind] ==
-                                  "positive"
-                                    ? "rgb(220 252 231)"
-                                    : rev.aspect_sentiment_polarities[ind] ==
-                                      "negative"
-                                    ? "rgb(254 226 226)"
-                                    : " rgb(209 213 219)",
-                              }}
-                            >
-                              {as}
+                {!pCount ? (
+                  <div className="flex justify-center items-center p-4 text-2xl text-gray-400">
+                    No Reviews
+                  </div>
+                ) : (
+                  dat.predictions
+                    .slice()
+                    .reverse()
+                    .map(
+                      (rev: any, i: any) =>
+                        rev.overall_sentiment_polarities == "positive" && (
+                          <div
+                            key={i}
+                            className="w-[100%] bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
+                          >
+                            <div className="flex justify-between items-center">
+                              <div className="font-bold text-2xl">
+                                {rev.product_review.summary}
+                              </div>
+                              <span
+                                className="absolute inset-x-0 bottom-0 h-1.5 justify-center items-center rounded-b-xl"
+                                style={{
+                                  backgroundColor:
+                                    rev.overall_sentiment_polarities ==
+                                    "positive"
+                                      ? "rgb(74, 222, 128)"
+                                      : rev.overall_sentiment_polarities ==
+                                        "negative"
+                                      ? "rgb(248, 113, 113)"
+                                      : " rgb(156, 163, 175)",
+                                }}
+                              ></span>
+                              <div>{rev.product_review.date}</div>
                             </div>
-                          ))}
-                        </div>
-                      </div>
+                            <div className="text-xl">
+                              {rev.product_review.review}
+                            </div>
+                            <div className="flex gap-2 pt-5 flex-wrap">
+                              {rev.aspect_terms.map((as: any, ind: any) => (
+                                <div
+                                  key={ind}
+                                  className="p-2 rounded-xl"
+                                  style={{
+                                    backgroundColor:
+                                      rev.aspect_sentiment_polarities[ind] ==
+                                      "positive"
+                                        ? "rgb(220 252 231)"
+                                        : rev.aspect_sentiment_polarities[
+                                            ind
+                                          ] == "negative"
+                                        ? "rgb(254 226 226)"
+                                        : " rgb(209 213 219)",
+                                  }}
+                                >
+                                  {as}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )
                     )
                 )}
               </div>
             )}
             {selectedOption == "negative" && (
               <div className="pb-7">
-                {dat.predictions.map(
-                  (rev: any, i: any) =>
-                    rev.overall_sentiment_polarities == "negative" && (
-                      <div
-                        key={i}
-                        className="w-[100%] bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
-                      >
-                        <div className="flex justify-between items-center">
-                          <div className="font-bold text-2xl">
-                            {rev.product_review.summary}
-                          </div>
-                          <span
-                            className="absolute inset-x-0 bottom-0 h-1.5 justify-center items-center rounded-b-xl"
-                            style={{
-                              backgroundColor:
-                                rev.overall_sentiment_polarities == "positive"
-                                  ? "rgb(74, 222, 128)"
-                                  : rev.overall_sentiment_polarities ==
-                                    "negative"
-                                  ? "rgb(248, 113, 113)"
-                                  : " rgb(156, 163, 175)",
-                            }}
-                          ></span>
-                          <div>{rev.product_review.date}</div>
-                        </div>
-                        <div className="text-xl">
-                          {rev.product_review.review}
-                        </div>
-                        <div className="flex gap-2 pt-5 flex-wrap">
-                          {rev.aspect_terms.map((as: any, ind: any) => (
-                            <div
-                              key={ind}
-                              className="p-2 rounded-xl"
-                              style={{
-                                backgroundColor:
-                                  rev.aspect_sentiment_polarities[ind] ==
-                                  "positive"
-                                    ? "rgb(220 252 231)"
-                                    : rev.aspect_sentiment_polarities[ind] ==
-                                      "negative"
-                                    ? "rgb(254 226 226)"
-                                    : " rgb(209 213 219)",
-                              }}
-                            >
-                              {as}
+                {!negCount ? (
+                  <div className="flex justify-center items-center p-4 text-2xl text-gray-400">
+                    No Reviews Found
+                  </div>
+                ) : (
+                  dat.predictions
+                    .slice()
+                    .reverse()
+                    .map(
+                      (rev: any, i: any) =>
+                        rev.overall_sentiment_polarities == "negative" && (
+                          <div
+                            key={i}
+                            className="w-[100%] bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
+                          >
+                            <div className="flex justify-between items-center">
+                              <div className="font-bold text-2xl">
+                                {rev.product_review.summary}
+                              </div>
+                              <span
+                                className="absolute inset-x-0 bottom-0 h-1.5 justify-center items-center rounded-b-xl"
+                                style={{
+                                  backgroundColor:
+                                    rev.overall_sentiment_polarities ==
+                                    "positive"
+                                      ? "rgb(74, 222, 128)"
+                                      : rev.overall_sentiment_polarities ==
+                                        "negative"
+                                      ? "rgb(248, 113, 113)"
+                                      : " rgb(156, 163, 175)",
+                                }}
+                              ></span>
+                              <div>{rev.product_review.date}</div>
                             </div>
-                          ))}
-                        </div>
-                      </div>
+                            <div className="text-xl">
+                              {rev.product_review.review}
+                            </div>
+                            <div className="flex gap-2 pt-5 flex-wrap">
+                              {rev.aspect_terms.map((as: any, ind: any) => (
+                                <div
+                                  key={ind}
+                                  className="p-2 rounded-xl"
+                                  style={{
+                                    backgroundColor:
+                                      rev.aspect_sentiment_polarities[ind] ==
+                                      "positive"
+                                        ? "rgb(220 252 231)"
+                                        : rev.aspect_sentiment_polarities[
+                                            ind
+                                          ] == "negative"
+                                        ? "rgb(254 226 226)"
+                                        : " rgb(209 213 219)",
+                                  }}
+                                >
+                                  {as}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )
                     )
                 )}
               </div>
             )}
             {selectedOption == "neutral" && (
               <div className="pb-7">
-                {dat.predictions.map(
-                  (rev: any, i: any) =>
-                    rev.overall_sentiment_polarities == "neutral" && (
-                      <div
-                        key={i}
-                        className="w-[100%] relative bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
-                      >
-                        <div className="flex justify-between items-center">
-                          <div className="font-bold text-2xl">
-                            {rev.product_review.summary}
-                          </div>
-                          <span
-                            className="absolute inset-x-0 bottom-0 h-1.5 justify-center items-center rounded-b-xl"
-                            style={{
-                              backgroundColor:
-                                rev.overall_sentiment_polarities == "positive"
-                                  ? "rgb(74, 222, 128)"
-                                  : rev.overall_sentiment_polarities ==
-                                    "negative"
-                                  ? "rgb(248, 113, 113)"
-                                  : " rgb(156, 163, 175)",
-                            }}
-                          ></span>
-                          <div>{rev.product_review.date}</div>
-                        </div>
-                        <div className="text-xl">
-                          {rev.product_review.review}
-                        </div>
-                        <div className="flex gap-2 pt-5 flex-wrap">
-                          {rev.aspect_terms.map((as: any, ind: any) => (
-                            <div
-                              key={ind}
-                              className="p-2 rounded-xl"
+                {!nCount ? (
+                  <div className="flex justify-center items-center p-4 text-2xl text-gray-400">
+                    No Reviews
+                  </div>
+                ) : (
+                  dat.predictions.map(
+                    (rev: any, i: any) =>
+                      rev.overall_sentiment_polarities == "neutral" && (
+                        <div
+                          key={i}
+                          className="w-[100%] relative bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
+                        >
+                          <div className="flex justify-between items-center">
+                            <div className="font-bold text-2xl">
+                              {rev.product_review.summary}
+                            </div>
+                            <span
+                              className="absolute inset-x-0 bottom-0 h-1.5 justify-center items-center rounded-b-xl"
                               style={{
                                 backgroundColor:
-                                  rev.aspect_sentiment_polarities[ind] ==
-                                  "positive"
-                                    ? "rgb(220 252 231)"
-                                    : rev.aspect_sentiment_polarities[ind] ==
+                                  rev.overall_sentiment_polarities == "positive"
+                                    ? "rgb(74, 222, 128)"
+                                    : rev.overall_sentiment_polarities ==
                                       "negative"
-                                    ? "rgb(254 226 226)"
-                                    : " rgb(209 213 219)",
+                                    ? "rgb(248, 113, 113)"
+                                    : " rgb(156, 163, 175)",
                               }}
-                            >
-                              {as}
-                            </div>
-                          ))}
+                            ></span>
+                            <div>{rev.product_review.date}</div>
+                          </div>
+                          <div className="text-xl">
+                            {rev.product_review.review}
+                          </div>
+                          <div className="flex gap-2 pt-5 flex-wrap">
+                            {rev.aspect_terms.map((as: any, ind: any) => (
+                              <div
+                                key={ind}
+                                className="p-2 rounded-xl"
+                                style={{
+                                  backgroundColor:
+                                    rev.aspect_sentiment_polarities[ind] ==
+                                    "positive"
+                                      ? "rgb(220 252 231)"
+                                      : rev.aspect_sentiment_polarities[ind] ==
+                                        "negative"
+                                      ? "rgb(254 226 226)"
+                                      : " rgb(209 213 219)",
+                                }}
+                              >
+                                {as}
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )
+                      )
+                  )
                 )}
               </div>
             )}
