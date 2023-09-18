@@ -20,7 +20,6 @@ const ProductReview = () => {
   const [inputSummary, setInputSummary] = useState("");
   const [clicked, isClicked] = useState(false);
   const [selectedOption, setSelectedOption] = useState("all");
-  const [newRev, isNewVal] = useState(false);
   const [dat, setData] = useState<{
     details: {
       product_categry: string;
