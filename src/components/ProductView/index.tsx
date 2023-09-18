@@ -47,6 +47,7 @@ const ProductReview = () => {
       );
       setData(val.data);
       console.log(val.data);
+      return "true";
     } catch (error) {
       console.log("error");
     }
@@ -87,14 +88,13 @@ const ProductReview = () => {
   };
   async function handleSubmit(event: any) {
     event.preventDefault();
-    console.log("Input value:", inputRev);
-    console.log(inputSummary);
+
     isClicked(false);
 
     // console.log(inpValues);
     const data = await axios
       .post(
-        "https://ff28-35-225-211-23.ngrok-free.app/generate/",
+        "https://baaf-34-32-201-60.ngrok-free.app/generate/",
 
         {
           inputs: inputRev,
@@ -126,7 +126,8 @@ const ProductReview = () => {
       })
       .then(function (response) {
         console.log(response.data);
-        fetchData();
+        var v = fetchData();
+        console.log(v);
       });
   }
   return (
@@ -152,12 +153,25 @@ const ProductReview = () => {
                 {dat?.details.product_title}
               </div>
               <div className="flex items-center gap-2">
-                <div className="text-xl font-semibold text-green-500">
-                  {Math.round(pVal)}%
-                </div>
-                <div>
-                  <img src="../../../tick.png" height={20} width={20} />
-                </div>
+                {pVal >= negVal ? (
+                  <div className="flex items-center gap-2">
+                    <div className="text-xl font-semibold text-green-500">
+                      {Math.round(pVal)}%
+                    </div>
+                    <div>
+                      <img src="../../../happy.png" height={25} width={25} />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <div className="text-xl font-semibold text-red-500">
+                      {Math.round(negVal)}%
+                    </div>
+                    <div>
+                      <img src="../../../unhappy.png" height={25} width={25} />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
             <div className="pt-3 justify-start items-center">
