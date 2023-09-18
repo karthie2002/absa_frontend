@@ -129,23 +129,71 @@ const CategoryDisplay = () => {
             <div className="text-3xl font-semibold max-sm:text-2xl">
               {selectedCateg}
             </div>
-            <div className="grid grid-cols-3 grid-flow-row gap-y-10 gap-x-10 max-xl:grid-cols-2 max-[830px]:grid-cols-1 max-[830px]:self-center">
-              {products.map((item, i) => {
-                return (
-                  <div key={i} className="w-52 hover:scale-105">
-                    <Link to={`product/${item.product_id}`}>
-                      <div className="bg-[#d8d8d8] rounded-xl w-52 h-52 hover:shadow-md">
-                        <img
-                          src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1689320106/Croma%20Assets/Entertainment/Headphones%20and%20Earphones/Images/275212_io0vgm.png?tr=w-600"
-                          alt={item.product_title}
-                        />
-                      </div>
-                      <div className="mt-1">{item.product_title}</div>
-                    </Link>
-                  </div>
-                );
-              })}
-            </div>
+            {products.length ? (
+              <div className="grid grid-cols-3 grid-flow-row gap-y-10 gap-x-10 max-xl:grid-cols-2 max-[830px]:grid-cols-1 max-[830px]:self-center">
+                {products.map((item, i) => {
+                  return (
+                    <div key={i} className="w-52 hover:scale-105">
+                      <Link to={`product/${item.product_id}`}>
+                        <div className="bg-[#d8d8d8] rounded-xl w-52 h-52 hover:shadow-md">
+                          <img
+                            src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1689320106/Croma%20Assets/Entertainment/Headphones%20and%20Earphones/Images/275212_io0vgm.png?tr=w-600"
+                            alt={item.product_title}
+                          />
+                        </div>
+                        <div className="mt-1">{item.product_title}</div>
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="flex items-center justify-center h-screen">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                >
+                  <g stroke="currentColor">
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="9.5"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeWidth="3"
+                    >
+                      <animate
+                        attributeName="stroke-dasharray"
+                        calcMode="spline"
+                        dur="1.5s"
+                        keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
+                        keyTimes="0;0.475;0.95;1"
+                        repeatCount="indefinite"
+                        values="0 150;42 150;42 150;42 150"
+                      />
+                      <animate
+                        attributeName="stroke-dashoffset"
+                        calcMode="spline"
+                        dur="1.5s"
+                        keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
+                        keyTimes="0;0.475;0.95;1"
+                        repeatCount="indefinite"
+                        values="0;-16;-59;-59"
+                      />
+                    </circle>
+                    <animateTransform
+                      attributeName="transform"
+                      dur="2s"
+                      repeatCount="indefinite"
+                      type="rotate"
+                      values="0 12 12;360 12 12"
+                    />
+                  </g>
+                </svg>
+              </div>
+            )}
           </div>
         </div>
         <div className="flex justify-center items-center gap-2 mt-20 mb-10">
