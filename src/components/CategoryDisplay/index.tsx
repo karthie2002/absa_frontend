@@ -69,7 +69,7 @@ const CategoryDisplay = () => {
           data.map((item: { product_categry: string; product_img: string }) => {
             const randomInt = Math.floor(Math.random() * (3 - 0 + 1)) + 0;
             item.product_categry = selectedCateg;
-            item.product_img = images.products[selectedCateg][randomInt];
+            // item.product_img = images.products[selectedCateg][randomInt];
             // console.log(item.product_img);
           });
           setProducts(data);
@@ -169,7 +169,7 @@ const CategoryDisplay = () => {
                           <img
                             width={208}
                             height={208}
-                            src={item.product_img}
+                            src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1689320106/Croma%20Assets/Entertainment/Headphones%20and%20Earphones/Images/275212_io0vgm.png?tr=w-600"
                             alt={item.product_title}
                           />
                         </div>
