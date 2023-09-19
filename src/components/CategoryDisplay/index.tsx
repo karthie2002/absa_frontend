@@ -67,7 +67,7 @@ const CategoryDisplay = () => {
         .then((response) => response.json())
         .then((data) => {
           data.map((item: { product_categry: string; product_img: string }) => {
-            const randomInt = Math.floor(Math.random() * (3 - 0 + 1)) + 0;
+            // const randomInt = Math.floor(Math.random() * (3 - 0 + 1)) + 0;
             item.product_categry = selectedCateg;
             // item.product_img = images.products[selectedCateg][randomInt];
             // console.log(item.product_img);
