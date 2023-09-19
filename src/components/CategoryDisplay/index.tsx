@@ -148,7 +148,7 @@ const CategoryDisplay = () => {
                 })}
               </div>
             ) : (
-              <div className="flex items-center justify-center h-screen">
+              <div className="flex items-start justify-center h-screen mt-10">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="32"
