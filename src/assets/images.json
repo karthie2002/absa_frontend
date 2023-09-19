@@ -1,0 +1,28 @@
+{
+  "categories": [
+    "https://prod4-sprcdn-assets.sprinklr.com/200052/8797ad9e-cc75-4b75-a27e-320a6310dc15-468706698/450.png",
+    "src/assets/products/hd.png",
+    "https://www.transparentpng.com/thumb/watch/dOleGR-skin-watch-clipart-transparent.png",
+    "https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/02/996594-6-Plastic-Free-Products-to-Green-Up-Your-Skin-Care-Routine-Up-Circle-Face-Serum_WithoutBG.png?h=840"
+  ],
+  "products": {
+    "Electronics": [
+      "https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1689320106/Croma%20Assets/Entertainment/Headphones%20and%20Earphones/Images/275212_io0vgm.png?tr=w-600",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6zQuSze7F_FVCiQDuE9vdO7x8jaiKADErxw&usqp=CAU",
+      "https://www.addmecart.com/wp-content/uploads/2023/03/1736.jpg",
+      "https://e1.pxfuel.com/desktop-wallpaper/352/545/desktop-wallpaper-baot-rockerz-255-sports-bluetooth-wireless-earphone-headphone-boat.jpg"
+    ],
+    "Fashion": [
+      "https://m.media-amazon.com/images/I/718yGCyz7KL._UY695_.jpg",
+      "https://m.media-amazon.com/images/I/71PWQ1b8LHL._UX679_.jpg",
+      "https://people.com/thmb/3ycvg9aEL0nu7PGgHMHUHMBg_6Y=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(749x0:751x2)/grace-karin-women-retro-long-sleeve-ruched-wrap-party-pencil-dress-black-c35d3b54c8b84c8b872f55a3f684d380.jpg",
+      "src/assets/products/fa.jpg"
+    ],
+    "Home & Décor": [
+      "src/assets/products/hd2.png",
+      "https://m.media-amazon.com/images/I/91FwdCVfcJL._AC_UL480_FMwebp_QL65_.jpg",
+      "https://m.media-amazon.com/images/I/61+hLmdD6UL._AC_UL480_FMwebp_QL65_.jpg",
+      "https://m.media-amazon.com/images/I/913GqKpFloS._AC_UL480_FMwebp_QL65_.jpg"
+    ]
+  }
+}

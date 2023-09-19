@@ -1,9 +1,21 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import images_json from "../../assets/images.json";
+
+interface ImageInterface {
+  categories: string[];
+  products: {
+    Electronics: string[];
+    Fashion: string[];
+    "Home & Décor": string[];
+  };
+}
 
 interface ProductInterface {
   product_id: string;
   product_title: string;
+  product_img: string;
+  product_categry: string;
 }
 interface CategoryInterface {
   product_categry: string;
@@ -14,16 +26,28 @@ const CategoryDisplay = () => {
   const [products, setProducts] = useState<ProductInterface[]>([]);
   const [categories, setCategories] = useState<CategoryInterface[]>([]);
   const [selectedCateg, setSelectedCateg] = useState("");
+  const [categImg, setCategImg] = useState(
+    "https://prod4-sprcdn-assets.sprinklr.com/200052/8797ad9e-cc75-4b75-a27e-320a6310dc15-468706698/450.png"
+  );
+  const images: ImageInterface = images_json;
 
   useEffect(() => {
     if (!selectedCateg) {
       fetch("https://backend-absa.vercel.app/categories/findAllCategories")
         .then((response) => response.json())
         .then((data) => {
-          data.map((item: { product_categry: string; selected: boolean }) => {
-            if (item.product_categry == selectedCateg) item.selected = true;
-            else item.selected = false;
-          });
+          data.map(
+            (item: {
+              category_img: string;
+              product_categry: string;
+              selected: boolean;
+            }) => {
+              const randomInt = Math.floor(Math.random() * (3 - 0 + 1)) + 0;
+              setCategImg(images.categories[randomInt]);
+              if (item.product_categry == selectedCateg) item.selected = true;
+              else item.selected = false;
+            }
+          );
           setCategories(data);
           // console.log(selectedCateg);
           if (data[0]) {
@@ -42,6 +66,12 @@ const CategoryDisplay = () => {
       })
         .then((response) => response.json())
         .then((data) => {
+          data.map((item: { product_categry: string; product_img: string }) => {
+            const randomInt = Math.floor(Math.random() * (3 - 0 + 1)) + 0;
+            item.product_categry = selectedCateg;
+            item.product_img = images.products[selectedCateg][randomInt];
+            // console.log(item.product_img);
+          });
           setProducts(data);
           // console.log(selectedCateg);
           console.log(products);
@@ -74,7 +104,7 @@ const CategoryDisplay = () => {
           </div>
           <div className="max-md:w-3/5">
             <img
-              src="https://prod4-sprcdn-assets.sprinklr.com/200052/8797ad9e-cc75-4b75-a27e-320a6310dc15-468706698/450.png"
+              src={categImg}
               alt="Product Image"
               width={300}
               height={400}
@@ -137,7 +167,9 @@ const CategoryDisplay = () => {
                       <Link to={`product/${item.product_id}`}>
                         <div className="bg-[#d8d8d8] rounded-xl w-52 h-52 hover:shadow-md">
                           <img
-                            src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1689320106/Croma%20Assets/Entertainment/Headphones%20and%20Earphones/Images/275212_io0vgm.png?tr=w-600"
+                            width={208}
+                            height={208}
+                            src={item.product_img}
                             alt={item.product_title}
                           />
                         </div>
