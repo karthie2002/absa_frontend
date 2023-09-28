@@ -112,7 +112,7 @@ const ProductReview = () => {
       data["overall_sentiment_polarity"]
     )[0];
     console.log(aspect_terms_sentiment, overall_sentiment_polarity);
-    axios
+    const d = axios
       .post("https://backend-absa.vercel.app/post", {
         product_id: productId,
         product_title: dat?.details.product_title,
@@ -126,9 +126,19 @@ const ProductReview = () => {
       })
       .then(function (response) {
         console.log(response.data);
-        var v = fetchData();
-        console.log(v);
+        fetchData();
+        return true;
       });
+    if ((await d) == true) {
+      axios
+        .post("https://d125-34-83-67-241.ngrok-free.app/getReview", {
+          details: dat?.details,
+          predictions: dat?.predictions,
+        })
+        .then(function (response) {
+          console.log(response);
+        });
+    }
   }
   return (
     <div>
