@@ -40,6 +40,26 @@ const ProductReview = () => {
       }
     ];
   }>();
+  async function fetchData2(){
+    try {
+      const val1 = await axios.get(
+        `https://backend-absa.vercel.app/groupReviews/${productId}`
+      );
+      setData(val1.data);
+      console.log(val1.data);
+      return "true";
+    } catch (error) {
+      console.log("error");
+    }
+    axios
+    .post("https://64ac-104-196-65-230.ngrok-free.app/getReview", {
+      details: dat?.details,
+      predictions: dat?.predictions,
+    })
+    .then(function (response) {
+      console.log(response);
+    });
+  }
   async function fetchData() {
     try {
       const val = await axios.get(
@@ -51,6 +71,7 @@ const ProductReview = () => {
     } catch (error) {
       console.log("error");
     }
+    
   }
   useEffect(() => {
     fetchData();
@@ -130,14 +151,7 @@ const ProductReview = () => {
         return true;
       });
     if ((await d) == true) {
-      axios
-        .post("https://64ac-104-196-65-230.ngrok-free.app/getReview", {
-          details: dat?.details,
-          predictions: dat?.predictions,
-        })
-        .then(function (response) {
-          console.log(response);
-        });
+     fetchData2()
     }
   }
   return (
