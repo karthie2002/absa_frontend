@@ -40,26 +40,6 @@ const ProductReview = () => {
       }
     ];
   }>();
-  async function fetchData2(){
-    try {
-      const val1 = await axios.get(
-        `https://backend-absa.vercel.app/groupReviews/${productId}`
-      );
-      setData(val1.data);
-      console.log(val1.data);
-      return "true";
-    } catch (error) {
-      console.log("error");
-    }
-    axios
-    .post("https://64ac-104-196-65-230.ngrok-free.app/getReview", {
-      details: dat?.details,
-      predictions: dat?.predictions,
-    })
-    .then(function (response) {
-      console.log(response);
-    });
-  }
   async function fetchData() {
     try {
       const val = await axios.get(
@@ -71,7 +51,6 @@ const ProductReview = () => {
     } catch (error) {
       console.log("error");
     }
-    
   }
   useEffect(() => {
     fetchData();
@@ -115,7 +94,7 @@ const ProductReview = () => {
     // console.log(inpValues);
     const data = await axios
       .post(
-        "https://4d0a-34-125-152-140.ngrok-free.app/generate/",
+        "https://188a-104-197-99-1.ngrok-free.app/generate/",
 
         {
           inputs: inputRev,
@@ -133,7 +112,7 @@ const ProductReview = () => {
       data["overall_sentiment_polarity"]
     )[0];
     console.log(aspect_terms_sentiment, overall_sentiment_polarity);
-    const d = axios
+    axios
       .post("https://backend-absa.vercel.app/post", {
         product_id: productId,
         product_title: dat?.details.product_title,
@@ -147,12 +126,9 @@ const ProductReview = () => {
       })
       .then(function (response) {
         console.log(response.data);
-        fetchData();
-        return true;
+        var v = fetchData();
+        console.log(v);
       });
-    if ((await d) == true) {
-     fetchData2()
-    }
   }
   return (
     <div>
