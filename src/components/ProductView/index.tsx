@@ -131,7 +131,7 @@ const ProductReview = () => {
       });
     if ((await d) == true) {
       axios
-        .post("https://d125-34-83-67-241.ngrok-free.app/getReview", {
+        .post("https://1341-34-83-67-241.ngrok-free.app/getReview", {
           details: dat?.details,
           predictions: dat?.predictions,
         })
