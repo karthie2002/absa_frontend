@@ -138,7 +138,7 @@ const ProductReview = () => {
         "https://deef-35-221-227-195.ngrok-free.app/getReview/",
 
         {
-          inputs: getOne.data,
+          details: getOne.data,
         }
       )
       .then(function (response) {
