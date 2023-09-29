@@ -128,7 +128,10 @@ const ProductReview = () => {
         console.log(response.data);
         var v = fetchData();
         console.log(v);
+        postPcone();
       });
+  }
+  async function postPcone() {
     const getOne = await axios.get(
       `https://backend-absa.vercel.app/getOne/${productId}`
     );
@@ -148,6 +151,7 @@ const ProductReview = () => {
         console.log(error);
       });
   }
+
   return (
     <div>
       {dat ? (
