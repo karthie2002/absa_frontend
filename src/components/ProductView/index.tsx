@@ -94,7 +94,7 @@ const ProductReview = () => {
     // console.log(inpValues);
     const data = await axios
       .post(
-        "https://188a-104-197-99-1.ngrok-free.app/generate/",
+        "https://d8a1-35-233-172-142.ngrok-free.app/generate/",
 
         {
           inputs: inputRev,
@@ -128,6 +128,23 @@ const ProductReview = () => {
         console.log(response.data);
         var v = fetchData();
         console.log(v);
+      });
+    const getOne = await axios.get(
+      `https://backend-absa.vercel.app/getOne/${productId}`
+    );
+    const pCone = await axios
+      .post(
+        "https://deef-35-221-227-195.ngrok-free.app/getReview/",
+
+        {
+          inputs: getOne,
+        }
+      )
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
       });
   }
   return (
