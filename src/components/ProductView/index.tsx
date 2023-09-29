@@ -132,12 +132,12 @@ const ProductReview = () => {
     const getOne = await axios.get(
       `https://backend-absa.vercel.app/getOne/${productId}`
     );
-     axios
+    axios
       .post(
         "https://deef-35-221-227-195.ngrok-free.app/getReview/",
 
         {
-          inputs: getOne,
+          inputs: getOne.data,
         }
       )
       .then(function (response) {
