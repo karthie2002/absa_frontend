@@ -94,7 +94,7 @@ const ProductReview = () => {
     // console.log(inpValues);
     const data = await axios
       .post(
-        "https://3201-35-233-172-142.ngrok-free.app/generate/",
+        "https://d5bf-35-240-151-45.ngrok-free.app/generate/",
 
         {
           inputs: inputRev,
