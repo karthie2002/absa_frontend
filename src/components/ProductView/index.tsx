@@ -138,7 +138,7 @@ const ProductReview = () => {
     console.log(getOne);
     axios
       .post(
-        "https://47bc-35-221-227-195.ngrok-free.app/getReview/",
+        "https://7fce-35-237-56-204.ngrok-free.app/getReview/",
 
         {
           details: getOne.data,
