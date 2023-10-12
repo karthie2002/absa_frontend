@@ -19,7 +19,10 @@ const ProductReview = () => {
   const [inputRev, setInputRevValue] = useState("");
   const [inputSummary, setInputSummary] = useState("");
   const [clicked, isClicked] = useState(false);
+  const [ques, setQues] = useState("");
   const [selectedOption, setSelectedOption] = useState("all");
+  const [queryVal, setQueryVal] = useState([]);
+  const [queryClick, setQueryClick] = useState(false);
   const [dat, setData] = useState<{
     details: {
       product_categry: string;
@@ -86,6 +89,37 @@ const ProductReview = () => {
   const handleSummaryChange = (event: any) => {
     setInputSummary(event.target.value);
   };
+  async function handleQuery(event: any) {
+    setQueryVal([]);
+    event.preventDefault();
+    setQueryClick(true);
+    console.log(productId);
+    await axios
+      .post(
+        "https://6883-34-85-159-80.ngrok-free.app/getQuery",
+
+        {
+          prod_id: productId,
+          ques: ques,
+        }
+      )
+      .then(function (response) {
+        console.log(JSON.parse(response.data["res"]));
+        setQueryVal(JSON.parse(response.data["res"]));
+
+        return JSON.parse(response.data["res"]);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  const handleQuestion = (event: any) => {
+    setQues(event.target.value);
+  };
+  const clearText = () => {
+    setQues("");
+    setQueryClick(false);
+  };
   async function handleSubmit(event: any) {
     event.preventDefault();
 
@@ -94,7 +128,7 @@ const ProductReview = () => {
     // console.log(inpValues);
     const data = await axios
       .post(
-        "https://d5bf-35-240-151-45.ngrok-free.app/generate/",
+        "https://d18b-34-41-63-61.ngrok-free.app/generate/",
 
         {
           inputs: inputRev,
@@ -138,7 +172,7 @@ const ProductReview = () => {
     console.log(getOne);
     axios
       .post(
-        "https://7fce-35-237-56-204.ngrok-free.app/getReview/",
+        "https://d18b-34-41-63-61.ngrok-free.app/getReview/",
 
         {
           details: getOne.data,
@@ -260,51 +294,94 @@ const ProductReview = () => {
                 </div>
               )}
             </div>
-            <div className="flex justify-between items-center mb-4">
-              <div
-                onClick={handleClick}
-                className="text-blue-500 cursor-pointer font-bold p-2 rounded-2xl w-fit border-2 border-blue-500 flex justify-center items-center gap-3 "
-              >
-                <div>
-                  {clicked == false ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="32"
-                      height="32"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4v4Zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Zm0-2q3.35 0 5.675-2.325T20 12q0-3.35-2.325-5.675T12 4Q8.65 4 6.325 6.325T4 12q0 3.35 2.325 5.675T12 20Zm0-8Z"
-                      />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="32"
-                      height="32"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M7 11h10v2H7zm5-9C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8z"
-                      />
-                    </svg>
+            <div className="flex-row">
+              <form onSubmit={handleQuery}>
+                <div className="flex items-center gap-4 pt-2 pb-6 ">
+                  <textarea
+                    id="message"
+                    onChange={handleQuestion}
+                    rows={1}
+                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600"
+                    placeholder="Search within Reviews"
+                    value={ques}
+                  ></textarea>
+
+                  {ques && (
+                    <button onClick={clearText}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="22"
+                        height="22"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          fill="currentColor"
+                          fillRule="evenodd"
+                          d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16ZM4.22 4.22a.75.75 0 0 1 1.06 0L8 6.94l2.72-2.72a.75.75 0 1 1 1.06 1.06L9.06 8l2.72 2.72a.75.75 0 1 1-1.06 1.06L8 9.06l-2.72 2.72a.75.75 0 0 1-1.06-1.06L6.94 8L4.22 5.28a.75.75 0 0 1 0-1.06Z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </button>
                   )}
+
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    type="submit"
+                  >
+                    Post
+                  </button>
                 </div>
-                <div>Add Reviews</div>
-              </div>
-              <select
-                value={selectedOption}
-                onChange={handleOptionChange}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5"
-              >
-                <option value="all">All</option>
-                <option value="positive">Positive</option>
-                <option value="negative">Negative</option>
-                <option value="neutral">Neutral</option>
-              </select>
+              </form>
             </div>
+
+            {queryClick == false && (
+              <div className="flex justify-between items-center mb-4">
+                <div
+                  onClick={handleClick}
+                  className="text-blue-500 cursor-pointer font-bold p-2 rounded-2xl w-fit border-2 border-blue-500 flex justify-center items-center gap-3 "
+                >
+                  <div>
+                    {clicked == false ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4v4Zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Zm0-2q3.35 0 5.675-2.325T20 12q0-3.35-2.325-5.675T12 4Q8.65 4 6.325 6.325T4 12q0 3.35 2.325 5.675T12 20Zm0-8Z"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M7 11h10v2H7zm5-9C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8z"
+                        />
+                      </svg>
+                    )}
+                  </div>
+                  <div>Add Reviews</div>
+                </div>
+
+                <select
+                  value={selectedOption}
+                  onChange={handleOptionChange}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5"
+                >
+                  <option value="all">All</option>
+                  <option value="positive">Positive</option>
+                  <option value="negative">Negative</option>
+                  <option value="neutral">Neutral</option>
+                </select>
+              </div>
+            )}
             {clicked && (
               <form onSubmit={handleSubmit}>
                 <textarea
@@ -331,204 +408,17 @@ const ProductReview = () => {
                 </button>
               </form>
             )}
-
-            {selectedOption == "all" && (
-              <div className="pb-7">
-                {dat.predictions
-                  .slice()
-                  .reverse()
-                  .map((rev: any, i: any) => (
-                    <div
-                      key={i}
-                      className="w-[100%] bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
-                    >
-                      <div className="flex justify-between items-center">
-                        <div className="font-bold text-2xl">
-                          {rev.product_review.summary}
-                        </div>
-                        <span
-                          className="absolute inset-x-0 bottom-0 h-1.5 justify-center items-center rounded-b-xl"
-                          style={{
-                            backgroundColor:
-                              rev.overall_sentiment_polarities == "positive"
-                                ? "rgb(74, 222, 128)"
-                                : rev.overall_sentiment_polarities == "negative"
-                                ? "rgb(248, 113, 113)"
-                                : " rgb(156, 163, 175)",
-                          }}
-                        ></span>
-                        <div>{rev.product_review.date}</div>
-                      </div>
-                      <div className="text-xl">{rev.product_review.review}</div>
-                      <div className="flex gap-2 pt-5 flex-wrap">
-                        {rev.aspect_terms.map((as: any, ind: any) => (
-                          <div
-                            key={ind}
-                            className="p-2 rounded-xl"
-                            style={{
-                              backgroundColor:
-                                rev.aspect_sentiment_polarities[ind] ==
-                                "positive"
-                                  ? "rgb(220 252 231)"
-                                  : rev.aspect_sentiment_polarities[ind] ==
-                                    "negative"
-                                  ? "rgb(254 226 226)"
-                                  : " rgb(209 213 219)",
-                            }}
-                          >
-                            {as}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            )}
-            {selectedOption == "positive" && (
-              <div className="pb-7">
-                {!pCount ? (
-                  <div className="flex justify-center items-center p-4 text-2xl text-gray-400">
-                    No Reviews
-                  </div>
-                ) : (
-                  dat.predictions
-                    .slice()
-                    .reverse()
-                    .map(
-                      (rev: any, i: any) =>
-                        rev.overall_sentiment_polarities == "positive" && (
-                          <div
-                            key={i}
-                            className="w-[100%] bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
-                          >
-                            <div className="flex justify-between items-center">
-                              <div className="font-bold text-2xl">
-                                {rev.product_review.summary}
-                              </div>
-                              <span
-                                className="absolute inset-x-0 bottom-0 h-1.5 justify-center items-center rounded-b-xl"
-                                style={{
-                                  backgroundColor:
-                                    rev.overall_sentiment_polarities ==
-                                    "positive"
-                                      ? "rgb(74, 222, 128)"
-                                      : rev.overall_sentiment_polarities ==
-                                        "negative"
-                                      ? "rgb(248, 113, 113)"
-                                      : " rgb(156, 163, 175)",
-                                }}
-                              ></span>
-                              <div>{rev.product_review.date}</div>
-                            </div>
-                            <div className="text-xl">
-                              {rev.product_review.review}
-                            </div>
-                            <div className="flex gap-2 pt-5 flex-wrap">
-                              {rev.aspect_terms.map((as: any, ind: any) => (
-                                <div
-                                  key={ind}
-                                  className="p-2 rounded-xl"
-                                  style={{
-                                    backgroundColor:
-                                      rev.aspect_sentiment_polarities[ind] ==
-                                      "positive"
-                                        ? "rgb(220 252 231)"
-                                        : rev.aspect_sentiment_polarities[
-                                            ind
-                                          ] == "negative"
-                                        ? "rgb(254 226 226)"
-                                        : " rgb(209 213 219)",
-                                  }}
-                                >
-                                  {as}
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )
-                    )
-                )}
-              </div>
-            )}
-            {selectedOption == "negative" && (
-              <div className="pb-7">
-                {!negCount ? (
-                  <div className="flex justify-center items-center p-4 text-2xl text-gray-400">
-                    No Reviews Found
-                  </div>
-                ) : (
-                  dat.predictions
-                    .slice()
-                    .reverse()
-                    .map(
-                      (rev: any, i: any) =>
-                        rev.overall_sentiment_polarities == "negative" && (
-                          <div
-                            key={i}
-                            className="w-[100%] bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
-                          >
-                            <div className="flex justify-between items-center">
-                              <div className="font-bold text-2xl">
-                                {rev.product_review.summary}
-                              </div>
-                              <span
-                                className="absolute inset-x-0 bottom-0 h-1.5 justify-center items-center rounded-b-xl"
-                                style={{
-                                  backgroundColor:
-                                    rev.overall_sentiment_polarities ==
-                                    "positive"
-                                      ? "rgb(74, 222, 128)"
-                                      : rev.overall_sentiment_polarities ==
-                                        "negative"
-                                      ? "rgb(248, 113, 113)"
-                                      : " rgb(156, 163, 175)",
-                                }}
-                              ></span>
-                              <div>{rev.product_review.date}</div>
-                            </div>
-                            <div className="text-xl">
-                              {rev.product_review.review}
-                            </div>
-                            <div className="flex gap-2 pt-5 flex-wrap">
-                              {rev.aspect_terms.map((as: any, ind: any) => (
-                                <div
-                                  key={ind}
-                                  className="p-2 rounded-xl"
-                                  style={{
-                                    backgroundColor:
-                                      rev.aspect_sentiment_polarities[ind] ==
-                                      "positive"
-                                        ? "rgb(220 252 231)"
-                                        : rev.aspect_sentiment_polarities[
-                                            ind
-                                          ] == "negative"
-                                        ? "rgb(254 226 226)"
-                                        : " rgb(209 213 219)",
-                                  }}
-                                >
-                                  {as}
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )
-                    )
-                )}
-              </div>
-            )}
-            {selectedOption == "neutral" && (
-              <div className="pb-7">
-                {!nCount ? (
-                  <div className="flex justify-center items-center p-4 text-2xl text-gray-400">
-                    No Reviews
-                  </div>
-                ) : (
-                  dat.predictions.map(
-                    (rev: any, i: any) =>
-                      rev.overall_sentiment_polarities == "neutral" && (
+            {queryClick == false && (
+              <div>
+                {selectedOption == "all" && (
+                  <div className="pb-7">
+                    {dat.predictions
+                      .slice()
+                      .reverse()
+                      .map((rev: any, i: any) => (
                         <div
                           key={i}
-                          className="w-[100%] relative bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
+                          className="w-[100%] bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
                         >
                           <div className="flex justify-between items-center">
                             <div className="font-bold text-2xl">
@@ -572,8 +462,299 @@ const ProductReview = () => {
                             ))}
                           </div>
                         </div>
+                      ))}
+                  </div>
+                )}
+                {selectedOption == "positive" && (
+                  <div className="pb-7">
+                    {!pCount ? (
+                      <div className="flex justify-center items-center p-4 text-2xl text-gray-400">
+                        No Reviews
+                      </div>
+                    ) : (
+                      dat.predictions
+                        .slice()
+                        .reverse()
+                        .map(
+                          (rev: any, i: any) =>
+                            rev.overall_sentiment_polarities == "positive" && (
+                              <div
+                                key={i}
+                                className="w-[100%] bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
+                              >
+                                <div className="flex justify-between items-center">
+                                  <div className="font-bold text-2xl">
+                                    {rev.product_review.summary}
+                                  </div>
+                                  <span
+                                    className="absolute inset-x-0 bottom-0 h-1.5 justify-center items-center rounded-b-xl"
+                                    style={{
+                                      backgroundColor:
+                                        rev.overall_sentiment_polarities ==
+                                        "positive"
+                                          ? "rgb(74, 222, 128)"
+                                          : rev.overall_sentiment_polarities ==
+                                            "negative"
+                                          ? "rgb(248, 113, 113)"
+                                          : " rgb(156, 163, 175)",
+                                    }}
+                                  ></span>
+                                  <div>{rev.product_review.date}</div>
+                                </div>
+                                <div className="text-xl">
+                                  {rev.product_review.review}
+                                </div>
+                                <div className="flex gap-2 pt-5 flex-wrap">
+                                  {rev.aspect_terms.map((as: any, ind: any) => (
+                                    <div
+                                      key={ind}
+                                      className="p-2 rounded-xl"
+                                      style={{
+                                        backgroundColor:
+                                          rev.aspect_sentiment_polarities[
+                                            ind
+                                          ] == "positive"
+                                            ? "rgb(220 252 231)"
+                                            : rev.aspect_sentiment_polarities[
+                                                ind
+                                              ] == "negative"
+                                            ? "rgb(254 226 226)"
+                                            : " rgb(209 213 219)",
+                                      }}
+                                    >
+                                      {as}
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )
+                        )
+                    )}
+                  </div>
+                )}
+                {selectedOption == "negative" && (
+                  <div className="pb-7">
+                    {!negCount ? (
+                      <div className="flex justify-center items-center p-4 text-2xl text-gray-400">
+                        No Reviews Found
+                      </div>
+                    ) : (
+                      dat.predictions
+                        .slice()
+                        .reverse()
+                        .map(
+                          (rev: any, i: any) =>
+                            rev.overall_sentiment_polarities == "negative" && (
+                              <div
+                                key={i}
+                                className="w-[100%] bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
+                              >
+                                <div className="flex justify-between items-center">
+                                  <div className="font-bold text-2xl">
+                                    {rev.product_review.summary}
+                                  </div>
+                                  <span
+                                    className="absolute inset-x-0 bottom-0 h-1.5 justify-center items-center rounded-b-xl"
+                                    style={{
+                                      backgroundColor:
+                                        rev.overall_sentiment_polarities ==
+                                        "positive"
+                                          ? "rgb(74, 222, 128)"
+                                          : rev.overall_sentiment_polarities ==
+                                            "negative"
+                                          ? "rgb(248, 113, 113)"
+                                          : " rgb(156, 163, 175)",
+                                    }}
+                                  ></span>
+                                  <div>{rev.product_review.date}</div>
+                                </div>
+                                <div className="text-xl">
+                                  {rev.product_review.review}
+                                </div>
+                                <div className="flex gap-2 pt-5 flex-wrap">
+                                  {rev.aspect_terms.map((as: any, ind: any) => (
+                                    <div
+                                      key={ind}
+                                      className="p-2 rounded-xl"
+                                      style={{
+                                        backgroundColor:
+                                          rev.aspect_sentiment_polarities[
+                                            ind
+                                          ] == "positive"
+                                            ? "rgb(220 252 231)"
+                                            : rev.aspect_sentiment_polarities[
+                                                ind
+                                              ] == "negative"
+                                            ? "rgb(254 226 226)"
+                                            : " rgb(209 213 219)",
+                                      }}
+                                    >
+                                      {as}
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )
+                        )
+                    )}
+                  </div>
+                )}
+                {selectedOption == "neutral" && (
+                  <div className="pb-7">
+                    {!nCount ? (
+                      <div className="flex justify-center items-center p-4 text-2xl text-gray-400">
+                        No Reviews
+                      </div>
+                    ) : (
+                      dat.predictions.map(
+                        (rev: any, i: any) =>
+                          rev.overall_sentiment_polarities == "neutral" && (
+                            <div
+                              key={i}
+                              className="w-[100%] relative bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
+                            >
+                              <div className="flex justify-between items-center">
+                                <div className="font-bold text-2xl">
+                                  {rev.product_review.summary}
+                                </div>
+                                <span
+                                  className="absolute inset-x-0 bottom-0 h-1.5 justify-center items-center rounded-b-xl"
+                                  style={{
+                                    backgroundColor:
+                                      rev.overall_sentiment_polarities ==
+                                      "positive"
+                                        ? "rgb(74, 222, 128)"
+                                        : rev.overall_sentiment_polarities ==
+                                          "negative"
+                                        ? "rgb(248, 113, 113)"
+                                        : " rgb(156, 163, 175)",
+                                  }}
+                                ></span>
+                                <div>{rev.product_review.date}</div>
+                              </div>
+                              <div className="text-xl">
+                                {rev.product_review.review}
+                              </div>
+                              <div className="flex gap-2 pt-5 flex-wrap">
+                                {rev.aspect_terms.map((as: any, ind: any) => (
+                                  <div
+                                    key={ind}
+                                    className="p-2 rounded-xl"
+                                    style={{
+                                      backgroundColor:
+                                        rev.aspect_sentiment_polarities[ind] ==
+                                        "positive"
+                                          ? "rgb(220 252 231)"
+                                          : rev.aspect_sentiment_polarities[
+                                              ind
+                                            ] == "negative"
+                                          ? "rgb(254 226 226)"
+                                          : " rgb(209 213 219)",
+                                    }}
+                                  >
+                                    {as}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )
                       )
-                  )
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+            {queryClick == true && (
+              <div>
+                {queryVal.length ? (
+                  queryVal.map((e: any, i: any) => (
+                    <div
+                      key={i}
+                      className="w-[100%] bg-gray-200 drop-shadow-sm p-4 bg-opacity-50 backdrop-blur-xl rounded-xl  mb-4"
+                    >
+                      <div className="flex justify-between items-center">
+                        <div className="font-bold text-2xl">{e.summary}</div>
+                        <span
+                          className="absolute inset-x-0 bottom-0 h-1.5 justify-center items-center rounded-b-xl"
+                          style={{
+                            backgroundColor:
+                              e.overall_sentiment_polarities == "positive"
+                                ? "rgb(74, 222, 128)"
+                                : e.overall_sentiment_polarities == "negative"
+                                ? "rgb(248, 113, 113)"
+                                : " rgb(156, 163, 175)",
+                          }}
+                        ></span>
+                        <div>{e.date}</div>
+                      </div>
+                      <div className="text-xl">{e.review}</div>
+                      <div className="flex gap-2 pt-5 flex-wrap">
+                        {e.aspect_terms.map((as: any, ind: any) => (
+                          <div
+                            key={ind}
+                            className="p-2 rounded-xl"
+                            style={{
+                              backgroundColor:
+                                e.aspect_sentiment_polarities[ind] == "positive"
+                                  ? "rgb(220 252 231)"
+                                  : e.aspect_sentiment_polarities[ind] ==
+                                    "negative"
+                                  ? "rgb(254 226 226)"
+                                  : " rgb(209 213 219)",
+                            }}
+                          >
+                            {as}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="flex items-center justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="32"
+                      height="32"
+                      viewBox="0 0 24 24"
+                    >
+                      <g stroke="currentColor">
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="9.5"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeWidth="3"
+                        >
+                          <animate
+                            attributeName="stroke-dasharray"
+                            calcMode="spline"
+                            dur="1.5s"
+                            keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
+                            keyTimes="0;0.475;0.95;1"
+                            repeatCount="indefinite"
+                            values="0 150;42 150;42 150;42 150"
+                          />
+                          <animate
+                            attributeName="stroke-dashoffset"
+                            calcMode="spline"
+                            dur="1.5s"
+                            keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
+                            keyTimes="0;0.475;0.95;1"
+                            repeatCount="indefinite"
+                            values="0;-16;-59;-59"
+                          />
+                        </circle>
+                        <animateTransform
+                          attributeName="transform"
+                          dur="2s"
+                          repeatCount="indefinite"
+                          type="rotate"
+                          values="0 12 12;360 12 12"
+                        />
+                      </g>
+                    </svg>
+                  </div>
                 )}
               </div>
             )}
